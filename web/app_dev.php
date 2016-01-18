@@ -3,8 +3,8 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 
-$loader = require __DIR__.'/../config/autoload.php';
-require_once __DIR__.'/../MicroKernel.php';
+$loader = require __DIR__.'/../app/config/autoload.php';
+require_once __DIR__.'/../app/MicroKernel.php';
 
 Debug::enable();
 

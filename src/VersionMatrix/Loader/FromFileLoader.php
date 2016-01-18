@@ -3,7 +3,7 @@
 namespace VersionMatrix\Loader;
 
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
-use VersionMatrix\Entity\Project;
+use VersionMatrix\Entity\Config\Project;
 
 class FromFileLoader
 {

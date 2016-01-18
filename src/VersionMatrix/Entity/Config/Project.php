@@ -1,16 +1,26 @@
 <?php
 
-namespace VersionMatrix\Entity;
+namespace VersionMatrix\Entity\Config;
 
+/**
+ * Class Project
+ * @package VersionMatrix\Entity\Config
+ */
 class Project
 {
+    /**
+     * @var string
+     */
     private $title;
+    /**
+     * @var string
+     */
     private $loader;
 
     /**
      * Project constructor.
-     * @param $title
-     * @param $loader
+     * @param string $title
+     * @param string $loader
      */
     public function __construct($title, $loader = 'default')
     {
@@ -19,7 +29,7 @@ class Project
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTitle()
     {
@@ -27,7 +37,7 @@ class Project
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLoader()
     {

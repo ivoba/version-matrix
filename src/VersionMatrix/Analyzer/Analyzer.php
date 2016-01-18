@@ -2,19 +2,24 @@
 
 namespace VersionMatrix\Analyzer;
 
-use chippyash\Matrix\Matrix;
+use VersionMatrix\Entity\Matrix\Dependency;
 
 class Analyzer
 {
 
     public function analyze($json)
     {
-        $data = [];
+        $deps = [];
         foreach ($json->packages as $package) {
-            $data[$package->name] = $package->version;
+            $deps[] = new Dependency(
+                $package->name,
+                $package->version,
+                $package->source->url,
+                $package->source->reference
+                );
         }
 
-        return $data;
+        return $deps;
     }
 
 }

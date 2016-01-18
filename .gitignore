@@ -2,4 +2,4 @@
 /vendor
 /bin
 /web/bundles
-composer.lock
+/composer.lock

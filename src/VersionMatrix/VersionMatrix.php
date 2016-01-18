@@ -9,6 +9,8 @@
 namespace VersionMatrix;
 
 use VersionMatrix\Entity\Config;
+use VersionMatrix\Entity\Matrix;
+use VersionMatrix\Exception\NotFoundException;
 
 class VersionMatrix
 {
@@ -21,7 +23,7 @@ class VersionMatrix
     /**
      * VersionMatrix constructor.
      * @param $config
-     * @param $analyser
+     * @param $analyzer
      * @param $loaders
      * @param $formatters
      */
@@ -37,23 +39,57 @@ class VersionMatrix
     {
         $projects = $this->config->getProjects();
 
-        $matrixData = [];
+        $projectData = [];
 
         foreach ($projects as $project) {
             $json = $this->loaders[$project->getLoader()]->load($project);
 
-            if($json){
-                $data = $this->analyzer->analyze($json);
-                $matrixData[$project->getTitle()] = $data;
+            if ($json) {
+                $dependencies = $this->analyzer->analyze($json);
+                $projectData[] = new Matrix\Project($project->getTitle(), $dependencies);
             }
         }
 
-        $this->matrix = new Matrix($matrixData);
+        $this->matrix = new Matrix($projectData);
     }
 
     public function getMatrix()
     {
+        return $this->toMatrix();
+    }
+
+    public function getData()
+    {
         return $this->matrix;
+    }
+
+    protected function toMatrix()
+    {
+        $matrix = [
+            'cols_title' => ['X' => '#'],
+            'rows_title' => [],
+            'matrix'     => [],
+        ];
+        foreach ($this->matrix->getData() as $projects) {
+            $matrix['cols_title'][$projects->getTitle()] = $projects->getTitle();
+            foreach ($projects->getDependencies() as $dep) {
+                $matrix['rows_title'][$dep->getTitle()] = $dep->getTitle();
+            }
+        }
+
+        foreach ($matrix['rows_title'] as $title) {
+            $dependency = [];
+            foreach ($this->matrix->getData() as $projects) {
+                try {
+                    $dependency[] = $projects->getDependencyByTitle($title);
+                } catch (NotFoundException $e) {
+                    $dependency[] = null;
+                }
+            }
+            $matrix['matrix'][$title] = $dependency;
+        }
+
+        return $matrix;
     }
 
 }

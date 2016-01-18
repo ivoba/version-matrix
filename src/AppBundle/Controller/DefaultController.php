@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * @author Koen Vinken <vinkenkoen@gmail.com>
+ * @author Ivo Bathke <ivo.bathke@gmail.com>
  */
 class DefaultController extends Controller
 {
@@ -15,6 +15,23 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        /*
+         * load config
+         * render projects
+         */
         return $this->render('AppBundle:Default:index.html.twig');
+    }
+
+    /**
+     * @Route("/{project}")
+     */
+    public function matrixAction()
+    {
+        /*
+         * load project
+         * 404 if not in Config
+         * render matrix
+         *
+         */
     }
 }

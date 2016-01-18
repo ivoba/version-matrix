@@ -8,7 +8,7 @@
 
 namespace VersionMatrix\Entity;
 
-use VersionMatrix\Entity\Project;
+use VersionMatrix\Entity\Config\Project;
 
 class Config
 {

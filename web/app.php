@@ -2,8 +2,8 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
-$loader = require __DIR__.'/../config/autoload.php';
-require_once __DIR__.'/../MicroKernel.php';
+$loader = require __DIR__.'/../app/config/autoload.php';
+require_once __DIR__.'/../app/MicroKernel.php';
 
 $kernel = new MicroKernel('prod', false);
 $kernel->loadClassCache();
