@@ -8,6 +8,7 @@
 
 namespace VersionMatrix;
 
+use VersionMatrix\Analyzer\Analyzer;
 use VersionMatrix\Entity\Config;
 use VersionMatrix\Entity\Matrix;
 use VersionMatrix\Exception\NotFoundException;
@@ -21,13 +22,12 @@ class VersionMatrix
     private $matrix;
 
     /**
-     * VersionMatrix constructor.
-     * @param $config
-     * @param $analyzer
-     * @param $loaders
-     * @param $formatters
+     * @param Config $config
+     * @param Analyzer $analyzer
+     * @param Config\Loaders $loaders
+     * @param null $formatters
      */
-    public function __construct(Config $config, $analyzer, $loaders, $formatters = null)
+    public function __construct(Config $config, Analyzer $analyzer, Config\Loaders $loaders, $formatters = null)
     {
         $this->config = $config;
         $this->analyzer = $analyzer;
@@ -42,7 +42,7 @@ class VersionMatrix
         $projectData = [];
 
         foreach ($projects as $project) {
-            $json = $this->loaders[$project->getLoader()]->load($project);
+            $json = $this->loaders->getLoader($project->getLoader())->load($project);
 
             if ($json) {
                 $dependencies = $this->analyzer->analyze($json);

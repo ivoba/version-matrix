@@ -6,19 +6,25 @@ Compare dependency versions for multiple similar projects.
 
 ## todo
 
-Loader loads Composer.lock, returns json object
-
-run task
-read projects
-analyze project
-store bundles & version in matrix
+- storage: persist matrix
+- reload matrix
+- pdf export
+- svg export
+- file upload
+- symlink
+- oauth for github & bitbucket
+- git chcekout: 
+  git archive --remote=git://git.foo.com/project.git HEAD composer.lock | tar -x
+  git clone -n git://path/to/the_repo.git --depth 1
+  cd the_repo
+  git checkout HEAD name_of_file
 
 table colgroup & caption
 
 
 
-|               | bundle1       | bundle1  |
+|               | bundle1       | bundle2  |
 | ------------- |:-------------:| --------:|
 | project1      | 1.1.1         | 1.2.3    |
-| project1      | 1.1.2         | 1.3.3    |
-| project1      | 0.0.9         | 1.4.1    |
+| project2      | 1.1.2         | 1.3.3    |
+| project3      | 0.0.9         | 1.4.1    |

@@ -2,14 +2,39 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}Welcome{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+    <title>{% block title %}Version Matrix{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
 {% block body %}
+    <div class="container">
     <h1>Version Matrix</h1>
-
+    {% if matrix %}
+        <table class="table">
+            <caption>Version Matrix for {{ projects_title }}</caption>
+            <thead>
+            <tr>
+            {% for head in matrix.cols_title %}
+                <th>{{ head }}</th>
+            {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+                {% for title in matrix.rows_title %}
+                <tr>
+                    <th>{{ title }}</th>
+                    {% for dep in matrix.matrix[title] %}
+                        <td>{{ dep.version }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    </div>
 {% endblock %}
 {% block javascripts %}{% endblock %}
 </body>

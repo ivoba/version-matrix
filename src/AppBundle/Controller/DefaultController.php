@@ -15,23 +15,12 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        /*
-         * load config
-         * render projects
-         */
-        return $this->render('AppBundle:Default:index.html.twig');
+        $versionMatrix = $this->get('version_matrix.matrix');
+        $versionMatrix->load();
+
+        $matrix = $versionMatrix->getMatrix();
+
+        return $this->render('AppBundle:Default:index.html.twig', ['matrix' => $matrix]);
     }
 
-    /**
-     * @Route("/{project}")
-     */
-    public function matrixAction()
-    {
-        /*
-         * load project
-         * 404 if not in Config
-         * render matrix
-         *
-         */
-    }
 }

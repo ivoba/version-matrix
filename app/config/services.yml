@@ -1,0 +1,12 @@
+services:
+  version_matrix.loader.default:
+    class: VersionMatrix\Loader\FromFileLoader
+    arguments: [%version_matrix.file_loader.dir%]
+  version_matrix.config:
+    class: AppBundle\Config\ConfigService
+    arguments: ["@=container.hasParameter('version_matrix.projects') ? parameter('version_matrix.projects') : []", {default: "@version_matrix.loader.default"}]
+  version_matrix.analyzer:
+    class: VersionMatrix\Analyzer\Analyzer
+  version_matrix.matrix:
+    class: VersionMatrix\VersionMatrix
+    arguments: ["@=service('version_matrix.config').getConfig()", "@version_matrix.analyzer", "@=service('version_matrix.config').getLoaders()"]
