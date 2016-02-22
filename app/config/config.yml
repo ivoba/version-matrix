@@ -1,13 +1,6 @@
 imports:
     - { resource: parameters.yml }
 
-parameters:
-    version_matrix.projects_title: "Demo projects"
-    version_matrix.projects:
-        - { name: 'project/one' }
-        - { name: 'project/two' }
-    version_matrix.file_loader.dir: '%kernel.root_dir%/../src/VersionMatrix/Tests/Fixtures/'
-
 framework:
     secret: %kernel.secret%
     assets: ~

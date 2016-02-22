@@ -5,7 +5,7 @@ namespace VersionMatrix\Loader;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use VersionMatrix\Entity\Config\Project;
 
-class FromFileLoader implements LoaderInterface
+class FileLoader implements LoaderInterface
 {
     private $dir;
     private $name;

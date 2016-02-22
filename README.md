@@ -28,3 +28,22 @@ table colgroup & caption
 | project1      | 1.1.1         | 1.2.3    |
 | project2      | 1.1.2         | 1.3.3    |
 | project3      | 0.0.9         | 1.4.1    |
+
+
+## docker
+
+Composer:
+
+    docker-compose run php composer install
+
+Server run
+
+    docker-compose run --service-ports php app/console server:run 0.0.0.0:8000
+    
+Phpunit
+
+    docker-compose run php bin/phpunit
+    
+Cache clear
+
+    docker-compose run app/console cache:clear

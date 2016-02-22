@@ -1,0 +1,6 @@
+parameters:
+    version_matrix.projects_title: "Demo projects"
+    version_matrix.projects:
+        - { name: 'project/one', loader: %version_matrix.loader.file.class%, arguments: [ %version_matrix.file_loader.dir% ]
+        - { name: 'project/two', loader: %version_matrix.loader.git.class%, arguments: ['git@bitbucket.org:you/your-project.git'] }
+    version_matrix.file_loader.dir: '%kernel.root_dir%/../src/VersionMatrix/Tests/Fixtures/'

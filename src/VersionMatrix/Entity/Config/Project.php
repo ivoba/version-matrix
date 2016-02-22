@@ -2,6 +2,8 @@
 
 namespace VersionMatrix\Entity\Config;
 
+use VersionMatrix\Loader\LoaderInterface;
+
 /**
  * Class Project
  * @package VersionMatrix\Entity\Config
@@ -13,19 +15,24 @@ class Project
      */
     private $title;
     /**
-     * @var string
+     * @var LoaderInterface
      */
     private $loader;
+    /**
+     * @var
+     */
+    private $options;
 
     /**
-     * Project constructor.
-     * @param string $title
-     * @param string $loader
+     * @param $title
+     * @param LoaderInterface $loader
+     * @param array|null $options
      */
-    public function __construct($title, $loader = 'default')
+    public function __construct($title, LoaderInterface $loader, array $options = null)
     {
         $this->title = $title;
         $this->loader = $loader;
+        $this->options = $options;
     }
 
     /**
@@ -37,11 +44,19 @@ class Project
     }
 
     /**
-     * @return string
+     * @return LoaderInterface
      */
     public function getLoader()
     {
         return $this->loader;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 
 }

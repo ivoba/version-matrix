@@ -15,23 +15,25 @@ use VersionMatrix\Exception\NotFoundException;
 
 class VersionMatrix
 {
+
+    const COLS_ARRAY_KEY = 'cols_title';
+    const ROWS_ARRAY_KEY = 'rows_title';
+    const MATRIX_ARRAY_KEY = 'matrix';
+
     private $config;
     private $analyzer;
-    private $loaders;
     private $formatters;
     private $matrix;
 
     /**
      * @param Config $config
      * @param Analyzer $analyzer
-     * @param Config\Loaders $loaders
      * @param null $formatters
      */
-    public function __construct(Config $config, Analyzer $analyzer, Config\Loaders $loaders, $formatters = null)
+    public function __construct(Config $config, Analyzer $analyzer, $formatters = null)
     {
         $this->config = $config;
         $this->analyzer = $analyzer;
-        $this->loaders = $loaders;
         $this->formatters = $formatters;
     }
 
@@ -42,7 +44,7 @@ class VersionMatrix
         $projectData = [];
 
         foreach ($projects as $project) {
-            $json = $this->loaders->getLoader($project->getLoader())->load($project);
+            $json = $project->getLoader()->load($project);
 
             if ($json) {
                 $dependencies = $this->analyzer->analyze($json);
@@ -55,20 +57,20 @@ class VersionMatrix
 
     public function getMatrix()
     {
-        return $this->toMatrix();
+        return $this->matrix;
     }
 
     public function getData()
     {
-        return $this->matrix;
+        return $this->toMatrix();
     }
 
     protected function toMatrix()
     {
         $matrix = [
-            'cols_title' => ['X' => '#'],
-            'rows_title' => [],
-            'matrix'     => [],
+            self::COLS_ARRAY_KEY => ['X' => '#'],
+            self::ROWS_ARRAY_KEY => [],
+            self::MATRIX_ARRAY_KEY     => [],
         ];
         foreach ($this->matrix->getData() as $projects) {
             $matrix['cols_title'][$projects->getTitle()] = $projects->getTitle();
@@ -77,7 +79,7 @@ class VersionMatrix
             }
         }
 
-        foreach ($matrix['rows_title'] as $title) {
+        foreach ($matrix[self::COLS_ARRAY_KEY] as $title) {
             $dependency = [];
             foreach ($this->matrix->getData() as $projects) {
                 try {
@@ -86,7 +88,7 @@ class VersionMatrix
                     $dependency[] = null;
                 }
             }
-            $matrix['matrix'][$title] = $dependency;
+            $matrix[self::MATRIX_ARRAY_KEY][$title] = $dependency;
         }
 
         return $matrix;

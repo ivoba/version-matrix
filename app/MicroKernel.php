@@ -6,9 +6,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
-/**
- * @author Koen Vinken <vinkenkoen@gmail.com>
- */
 class MicroKernel extends Kernel
 {
     use MicroKernelTrait;

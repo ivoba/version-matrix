@@ -18,7 +18,7 @@ class DefaultController extends Controller
         $versionMatrix = $this->get('version_matrix.matrix');
         $versionMatrix->load();
 
-        $matrix = $versionMatrix->getMatrix();
+        $matrix = $versionMatrix->getData();
 
         return $this->render('AppBundle:Default:index.html.twig', ['matrix' => $matrix]);
     }

@@ -5,9 +5,10 @@ namespace VersionMatrix\Tests\VersionMatrix;
 use VersionMatrix\Analyzer\Analyzer;
 use VersionMatrix\Entity\Config;
 use VersionMatrix\Entity\Config\Project;
+use VersionMatrix\Loader\FileLoader;
 use VersionMatrix\Loader\FromFileLoader;
-use VersionMatrix\Renderer\ConsoleRenderer;
 use VersionMatrix\VersionMatrix;
+use VersionMatrix\Entity\Matrix;
 
 class VersionMatrixTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,22 +17,20 @@ class VersionMatrixTest extends \PHPUnit_Framework_TestCase
 
         $config = new Config(
             [
-                new Project('project/one'),
-                new Project('project/two'),
+                new Project('project/one', new FileLoader(__DIR__.'/../Fixtures/')),
+                new Project('project/two', new FileLoader(__DIR__.'/../Fixtures/')),
             ]
         );
 
-        $loaders = ['default' => new FromFileLoader(__DIR__.'/../Fixtures/')];
-
         $analyzer = new Analyzer();
-        $versionMatrix = new VersionMatrix($config, $analyzer, $loaders);
+        $versionMatrix = new VersionMatrix($config, $analyzer);
         $versionMatrix->load();
         $matrix = $versionMatrix->getMatrix();
-        dump($matrix);
+        $data = $versionMatrix->getData();
 
-        $renderer = new ConsoleRenderer();
-
-
+        $this->assertInstanceOf(Matrix::class, $matrix);
+        $this->assertInternalType('array', $data);
+        $this->assertCount(3, $data['cols_title']);
     }
 
 }

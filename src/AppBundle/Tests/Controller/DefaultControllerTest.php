@@ -14,6 +14,7 @@ class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/');
+//        dump($client->getResponse()->getContent());exit;
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
