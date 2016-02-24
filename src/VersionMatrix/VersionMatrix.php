@@ -44,7 +44,7 @@ class VersionMatrix
         $projectData = [];
 
         foreach ($projects as $project) {
-            $json = $project->getLoader()->load($project);
+            $json = $project->getLoader()->load();
 
             if ($json) {
                 $dependencies = $this->analyzer->analyze($json);

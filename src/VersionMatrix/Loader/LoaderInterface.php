@@ -8,8 +8,6 @@
 
 namespace VersionMatrix\Loader;
 
-use VersionMatrix\Entity\Config\Project;
-
 /**
  * Interface LoaderInterface
  * @package VersionMatrix\Loader
@@ -17,8 +15,7 @@ use VersionMatrix\Entity\Config\Project;
 interface LoaderInterface
 {
     /**
-     * @param Project $project
-     * @return object json decoded
+     * @return mixed
      */
-    public function load(Project $project);
+    public function load();
 }

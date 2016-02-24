@@ -8,16 +8,27 @@
 
 namespace VersionMatrix\Loader;
 
-
-use VersionMatrix\Entity\Config\Project;
-
 class GitLoader implements LoaderInterface
 {
-    public function load(Project $project)
-    {
-        if($project->getLoader()){
+    private $repo;
+    private $file;
 
-        }
+    /**
+     * @param $repo
+     * @param string $file
+     */
+    public function __construct($repo, $file = 'composer.lock')
+    {
+        $this->repo = $repo;
+        $this->file = $file;
+    }
+
+    public function load()
+    {
+        echo 'git archive --remote='.escapeshellcmd($this->repo).' HEAD '.escapeshellcmd($this->file).' | tar -xO';
+        exec('git archive --remote='.escapeshellcmd($this->repo).' HEAD '.escapeshellcmd($this->file).' | tar -xO', $output);
+var_dump($output);exit;
+        return implode("\n", $output);
     }
 
 }

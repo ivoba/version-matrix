@@ -27,9 +27,9 @@
   "extra": {
     "incenteev-parameters": {
       "file": "app/config/parameters.yml"
-    },
-    "branch-alias": {
-      "dev-master": "3.1-dev"
     }
+  },
+  "config": {
+    "bin-dir": "bin"
   }
 }

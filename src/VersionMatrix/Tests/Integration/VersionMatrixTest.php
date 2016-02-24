@@ -17,8 +17,8 @@ class VersionMatrixTest extends \PHPUnit_Framework_TestCase
 
         $config = new Config(
             [
-                new Project('project/one', new FileLoader(__DIR__.'/../Fixtures/')),
-                new Project('project/two', new FileLoader(__DIR__.'/../Fixtures/')),
+                new Project('project/one', new FileLoader(__DIR__.'/../Fixtures/', 'project_one/composer.lock')),
+                new Project('project/two', new FileLoader(__DIR__.'/../Fixtures/', 'project_two/composer.lock')),
             ]
         );
 

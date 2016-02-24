@@ -2,28 +2,25 @@
 
 namespace VersionMatrix\Loader;
 
-use Symfony\Component\Filesystem\Exception\FileNotFoundException;
-use VersionMatrix\Entity\Config\Project;
-
 class FileLoader implements LoaderInterface
 {
     private $dir;
-    private $name;
+    private $file;
 
     /**
      * FromFileLoader constructor.
      * @param $dir
      */
-    public function __construct($dir, $name = 'composer.lock')
+    public function __construct($dir, $file = 'composer.lock')
     {
         $this->dir = $dir;
-        $this->name = $name;
+        $this->file = $file;
     }
 
 
-    public function load(Project $project)
+    public function load()
     {
-        $file = $this->dir.str_replace('/', '_', $project->getTitle()).'/'.$this->name;
+        $file = $this->dir.$this->file;
 
         if (!file_exists($file)) {
             throw new FileNotFoundException($file.' was not found.');
